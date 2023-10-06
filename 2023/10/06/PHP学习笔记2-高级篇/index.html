@@ -1,0 +1,258 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>PHP学习笔记2-高级篇 | 珊珊的博客</title><meta name="author" content="SS"><meta name="copyright" content="SS"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="PHP文件包含文件include require语句 都用于插入文件内容  require 生成一个致命错误（E_COMPILE_ERROR），在错误发生后脚本会停止执行。 include 生成一个警告（E_WARNING），在错误发生后脚本会继续执行。    12require &amp;#x27;filename&amp;#x27;;include &amp;#x27;filename&amp;#x27;;  文件处理打开&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PHP学习笔记2-高级篇">
+<meta property="og:url" content="http://example.com/2023/10/06/PHP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02-%E9%AB%98%E7%BA%A7%E7%AF%87/index.html">
+<meta property="og:site_name" content="珊珊的博客">
+<meta property="og:description" content="PHP文件包含文件include require语句 都用于插入文件内容  require 生成一个致命错误（E_COMPILE_ERROR），在错误发生后脚本会停止执行。 include 生成一个警告（E_WARNING），在错误发生后脚本会继续执行。    12require &amp;#x27;filename&amp;#x27;;include &amp;#x27;filename&amp;#x27;;  文件处理打开&amp;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/OIP-C.jpg">
+<meta property="article:published_time" content="2023-10-06T09:56:30.000Z">
+<meta property="article:modified_time" content="2023-10-06T09:56:30.527Z">
+<meta property="article:author" content="SS">
+<meta property="article:tag" content="web">
+<meta property="article:tag" content="学习笔记">
+<meta property="article:tag" content="PHP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/OIP-C.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2023/10/06/PHP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02-%E9%AB%98%E7%BA%A7%E7%AF%87/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'PHP学习笔记2-高级篇',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-10-06 17:56:30'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/OIP-C.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">9</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">11</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/time/"><i class="fa-fw fa fa-calendar"></i><span> time</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/bk.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="珊珊的博客"><img class="site-icon" src="/img/favicon.png"/><span class="site-name">珊珊的博客</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/time/"><i class="fa-fw fa fa-calendar"></i><span> time</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">PHP学习笔记2-高级篇</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-10-06T09:56:30.000Z" title="发表于 2023-10-06 17:56:30">2023-10-06</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-10-06T09:56:30.527Z" title="更新于 2023-10-06 17:56:30">2023-10-06</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/PHP/">PHP</a></span></div><div class="meta-secondline"></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="PHP文件"><a href="#PHP文件" class="headerlink" title="PHP文件"></a>PHP文件</h1><h2 id="包含文件"><a href="#包含文件" class="headerlink" title="包含文件"></a>包含文件</h2><h3 id="include-require语句"><a href="#include-require语句" class="headerlink" title="include require语句"></a>include require语句</h3><ol>
+<li>都用于插入文件内容</li>
+<li><ul>
+<li>require 生成一个致命错误（E_COMPILE_ERROR），在错误发生后脚本会停止执行。</li>
+<li>include 生成一个警告（E_WARNING），在错误发生后脚本会继续执行。</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">require</span> <span class="string">&#x27;filename&#x27;</span>;</span><br><span class="line"><span class="keyword">include</span> <span class="string">&#x27;filename&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="文件处理"><a href="#文件处理" class="headerlink" title="文件处理"></a>文件处理</h2><h3 id="打开-创建文件"><a href="#打开-创建文件" class="headerlink" title="打开&#x2F;创建文件"></a>打开&#x2F;创建文件</h3><p>&#x3D;&#x3D;fopen()&#x3D;&#x3D;       <strong>参数不同</strong></p>
+   <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">   <span class="meta">&lt;?php</span></span><br><span class="line">    <span class="title function_ invoke__">fopen</span>(<span class="string">&quot;文件名&quot;</span>,<span class="string">&quot;打开方式&quot;</span>),一般做赋值使用</span><br><span class="line">    eg:<span class="variable">$file</span> = <span class="title function_ invoke__">fopen</span>(<span class="string">&quot;myfile.txt&quot;</span>,<span class="string">&quot;w&quot;</span>) <span class="keyword">or</span> <span class="keyword">exit</span> (<span class="string">&quot;unable open the file&quot;</span>);</span><br><span class="line">     <span class="meta">?&gt;</span></span><br><span class="line">   ```  </span><br><span class="line"></span><br><span class="line">![](PHP学习笔记<span class="number">2</span>-高级篇/文件读取.png)</span><br><span class="line">**w 有覆盖的能力**</span><br><span class="line"></span><br><span class="line"><span class="comment">### 关闭文件</span></span><br><span class="line">==<span class="title function_ invoke__">fclose</span>()==</span><br><span class="line">```php </span><br><span class="line">   <span class="meta">&lt;?php</span></span><br><span class="line"><span class="title function_ invoke__">fclose</span>(文件类型的变量);</span><br><span class="line">    eg:<span class="title function_ invoke__">fclose</span>(<span class="variable">$file</span>);</span><br><span class="line">   <span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="读取文件"><a href="#读取文件" class="headerlink" title="读取文件"></a>读取文件</h3><ol>
+<li>函数读取文件<br>&#x3D;&#x3D;readfile()&#x3D;&#x3D;</li>
+</ol>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_ invoke__">readfile</span>(<span class="string">&quot;文件名&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>读取成功会有返回值：文件字节数</p>
+<ol start="2">
+<li>检测文件末尾读取文件<br>&#x3D;&#x3D;feof()&#x3D;&#x3D;</li>
+</ol>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(!<span class="title function_ invoke__">feof</span>(<span class="variable">$file</span>))&#123;</span><br><span class="line">   <span class="keyword">echo</span> <span class="title function_ invoke__">fgets</span>(file).<span class="string">&quot;&lt;br&gt;&quot;</span>;<span class="comment">//逐行读取文件</span></span><br><span class="line">   <span class="keyword">echo</span> <span class="title function_ invoke__">fgetc</span>(file).<span class="string">&quot;&lt;br&gt;&quot;</span>;<span class="comment">//逐字符读取文件</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>csv文件</li>
+<li>系统编码问题导致文件差找不到</li>
+</ul>
+<ol start="3">
+<li>规定字节数读取文件<br>&#x3D;&#x3D;fread()&#x3D;&#x3D;</li>
+</ol>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_ invoke__">fread</span>(<span class="string">&quot;文件名&quot;</span>,<span class="string">&quot;待读取的最大字节数&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p><em>附：读至结尾的字节数：filesize(“文件名.txt”);</em></p>
+<p><strong>重点：readfile()和fread()的区别：</strong></p>
+<ul>
+<li>readfile() 优势是能够一次性读取大文件；不需要PHP预读到内存，下载速度更快，直接把文件的处理交由服务器。缺点就是不能控制负载。所以它是没有内存限制的，如果遇到报内存错误，先调用 ob_end_flush()之类的函数关闭缓冲区。</li>
+<li>fread() 最大一次性能读取 8k长度的字节数，所以不能一次性读取大文件去作下载。 优势在于，操作更加灵活，每次读取指定字节的内容，用于下载时方便控制服务器的流量。&#x2F;&#x2F;对二进制友好？？</li>
+</ul>
+<h3 id="写入文件"><a href="#写入文件" class="headerlink" title="写入文件"></a>写入文件</h3><p>   &#x3D;&#x3D;fwrite()&#x3D;&#x3D;</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_ invoke__">fwrite</span>(<span class="string">&quot;文件名&quot;</span>,<span class="string">&quot;要写入的语句&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="文件的复制，删除，重命名"><a href="#文件的复制，删除，重命名" class="headerlink" title="文件的复制，删除，重命名"></a>文件的复制，删除，重命名</h3><p>&#x3D;&#x3D;copy()&#x3D;&#x3D;</p>
+<p>&#x3D;&#x3D;unlink()&#x3D;&#x3D;</p>
+<p>&#x3D;&#x3D;rename()&#x3D;&#x3D;</p>
+<h2 id="获取文件属性"><a href="#获取文件属性" class="headerlink" title="获取文件属性"></a>获取文件属性</h2><p><img src="/2023/10/06/PHP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02-%E9%AB%98%E7%BA%A7%E7%AF%87/%E8%8E%B7%E5%8F%96%E6%96%87%E4%BB%B6%E5%B1%9E%E6%80%A7.png"><br><strong>补充：</strong>判断是否是文件  &#x3D;&#x3D;if_file()&#x3D;&#x3D;<br><strong>注意：</strong>参数都是文件类型的变量</p>
+<h2 id="文件上传"><a href="#文件上传" class="headerlink" title="文件上传"></a>文件上传</h2><ol>
+<li>创建一个文件上传表单<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;input type=<span class="string">&#x27;file&#x27;</span> name=...&gt;</span><br></pre></td></tr></table></figure></li>
+<li>创建上传脚本</li>
+</ol>
+<blockquote>
+<p>一种非常简单的上传文件的方式(从客户计算机-&gt;远程服务器)</p>
+</blockquote>
+<p>&#x3D;&#x3D;$_FILES[][]&#x3D;&#x3D;</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//全局数组</span></span><br><span class="line"><span class="variable">$_FILES</span>[<span class="string">&#x27;表单的input name&#x27;</span>][<span class="string">&#x27;name/type/size/tmp_name/error&#x27;</span>]</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><p>上传限制</p>
+<blockquote>
+<p>限制上传的文件类型、大小</p>
+</blockquote>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$allowedExts</span> = <span class="keyword">array</span>(<span class="string">&#x27;&#x27;</span>,<span class="string">&#x27;&#x27;</span>,<span class="string">&#x27;&#x27;</span>);</span><br><span class="line"><span class="variable">$temp</span> = <span class="title function_ invoke__">explode</span>(<span class="string">&quot;.&quot;</span>,<span class="variable">$_FILE</span>[<span class="string">&quot;file&quot;</span>][<span class="string">&quot;name&quot;</span>]);</span><br><span class="line"><span class="variable">$extension</span> = <span class="title function_ invoke__">end</span> (<span class="variable">$temp</span>);<span class="comment">//获取文件后缀名</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$_FILES</span>[<span class="string">&quot;file&quot;</span>][<span class="string">&quot;size&quot;</span>] &lt; <span class="number">204800</span> <span class="comment">//文件大小小于200kb</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>保存被上传的文件</p>
+<blockquote>
+<p>上传文件的临时副本会在脚本结束的时候消失，把他拷贝到另一位置来保存</p>
+</blockquote>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"> </span><br><span class="line"><span class="comment">// 判断当前目录下的 upload 目录是否存在该文件</span></span><br><span class="line"><span class="comment">// 如果没有 upload 目录，你需要创建它，upload 目录权限为 777</span></span><br><span class="line"><span class="keyword">if</span>(<span class="title function_ invoke__">file_exists</span>(<span class="string">&quot;upload/&quot;</span>.<span class="variable">$_FILES</span>[<span class="string">&quot;file&quot;</span>][<span class="string">&quot;name&quot;</span>]))&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="variable">$_FILES</span>[<span class="string">&quot;file&quot;</span>][<span class="string">&quot;name&quot;</span>].<span class="string">&quot;文件已存在。&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="title function_ invoke__">move_uploaded_file</span>(<span class="variable">$_FILES</span>[<span class="string">&quot;file&quot;</span>][<span class="string">&quot;tmp_name&quot;</span>]<span class="comment">/*临时文件名*/</span>,<span class="string">&quot;upload/&quot;</span>.<span class="variable">$_FILES</span>[<span class="string">&quot;file&quot;</span>][<span class="string">&quot;name&quot;</span>]);</span><br><span class="line">     <span class="keyword">echo</span> <span class="string">&quot;文件存储在: &quot;</span> . <span class="string">&quot;upload/&quot;</span> . <span class="variable">$_FILES</span>[<span class="string">&quot;file&quot;</span>][<span class="string">&quot;name&quot;</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h1 id="PHP目录操作"><a href="#PHP目录操作" class="headerlink" title="PHP目录操作"></a>PHP目录操作</h1><ol>
+<li>新建目录: &#x3D;&#x3D;mkdir()&#x3D;&#x3D;</li>
+<li>删除目录: &#x3D;&#x3D;rmdir()&#x3D;&#x3D;</li>
+<li>打开目录: &#x3D;&#x3D;opendir(目录)&#x3D;&#x3D;</li>
+<li>读取目录: &#x3D;&#x3D;readdir()&#x3D;&#x3D; </li>
+<li>关闭目录: &#x3D;&#x3D;closefir()&#x3D;&#x3D;<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">目录句柄 = <span class="title function_ invoke__">opendir</span>(目录); <span class="comment">// 打开</span></span><br><span class="line">文件名 = <span class="title function_ invoke__">readdir</span>(目录句柄);<span class="comment">// 读取，读取不到返回false</span></span><br></pre></td></tr></table></figure>
+<strong>重点：遍历递归目录</strong></li>
+</ol>
+<h1 id="PHP-Cookie"><a href="#PHP-Cookie" class="headerlink" title="PHP Cookie"></a>PHP Cookie</h1><blockquote>
+<p>用于识别用户</p>
+</blockquote>
+<ol>
+<li><p>什么是Cookie</p>
+<ol>
+<li>服务器留在用户计算机上的小文件</li>
+<li>计算机请求页面时发送Cookie</li>
+<li>通过PHP，创建并取回Cookie的值</li>
+</ol>
+</li>
+<li><p>创建Cookie<br>&#x3D;&#x3D;setcookie()&#x3D;&#x3D;</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="title function_ invoke__">setcookie</span>(name,value,expire<span class="comment">/*到期*/</span>,path<span class="comment">/*路径*/</span>,domain<span class="comment">/*域*/</span>)；</span><br><span class="line"></span><br><span class="line">expire:</span><br><span class="line"><span class="number">1</span>. <span class="title function_ invoke__">time</span>()+<span class="number">3600</span>;<span class="comment">//一小时后过期</span></span><br><span class="line"><span class="number">2</span>. <span class="title function_ invoke__">time</span>()+<span class="number">60</span>*<span class="number">60</span>*<span class="number">24</span>*<span class="number">30</span>;<span class="comment">//一个月之后过期</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>注释：</strong>在发送cookie时，值会自动进行URL编码，取回时自动解码。</p>
+</li>
+<li><p>取回cookie的值<br> &#x3D;&#x3D;$_COOKIE&#x3D;&#x3D;</p>
+</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">SS</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2023/10/06/PHP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02-%E9%AB%98%E7%BA%A7%E7%AF%87/">http://example.com/2023/10/06/PHP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02-%E9%AB%98%E7%BA%A7%E7%AF%87/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">珊珊的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/web/">web</a><a class="post-meta__tags" href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a><a class="post-meta__tags" href="/tags/PHP/">PHP</a></div><div class="post_share"><div class="social-share" data-image="/img/OIP-C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2023/10/06/PHP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01-%E5%9F%BA%E7%A1%80%E7%AF%87/" title="PHP学习笔记1-基础篇"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-06</div><div class="title">PHP学习笔记1-基础篇</div></div></a></div><div><a href="/2023/09/23/DOM%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="DOM学习笔记"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-09-23</div><div class="title">DOM学习笔记</div></div></a></div><div><a href="/2023/09/23/js%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02-%E5%86%85%E7%BD%AE%E5%AF%B9%E8%B1%A1/" title="js学习笔记2-内置对象"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-09-23</div><div class="title">js学习笔记2-内置对象</div></div></a></div><div><a href="/2023/09/08/js%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="js学习笔记-函数、对象"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-09-08</div><div class="title">js学习笔记-函数、对象</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/OIP-C.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">SS</div><div class="author-info__description">一个励志成为黑客大佬的小菜鸡~</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">9</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">11</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="mailto:1902728075@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">。。。</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#PHP%E6%96%87%E4%BB%B6"><span class="toc-number">1.</span> <span class="toc-text">PHP文件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8C%85%E5%90%AB%E6%96%87%E4%BB%B6"><span class="toc-number">1.1.</span> <span class="toc-text">包含文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#include-require%E8%AF%AD%E5%8F%A5"><span class="toc-number">1.1.1.</span> <span class="toc-text">include require语句</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86"><span class="toc-number">1.2.</span> <span class="toc-text">文件处理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%93%E5%BC%80-%E5%88%9B%E5%BB%BA%E6%96%87%E4%BB%B6"><span class="toc-number">1.2.1.</span> <span class="toc-text">打开&#x2F;创建文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6"><span class="toc-number">1.2.2.</span> <span class="toc-text">读取文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%99%E5%85%A5%E6%96%87%E4%BB%B6"><span class="toc-number">1.2.3.</span> <span class="toc-text">写入文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%9A%84%E5%A4%8D%E5%88%B6%EF%BC%8C%E5%88%A0%E9%99%A4%EF%BC%8C%E9%87%8D%E5%91%BD%E5%90%8D"><span class="toc-number">1.2.4.</span> <span class="toc-text">文件的复制，删除，重命名</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E6%96%87%E4%BB%B6%E5%B1%9E%E6%80%A7"><span class="toc-number">1.3.</span> <span class="toc-text">获取文件属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0"><span class="toc-number">1.4.</span> <span class="toc-text">文件上传</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PHP%E7%9B%AE%E5%BD%95%E6%93%8D%E4%BD%9C"><span class="toc-number">2.</span> <span class="toc-text">PHP目录操作</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PHP-Cookie"><span class="toc-number">3.</span> <span class="toc-text">PHP Cookie</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/10/06/PHP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02-%E9%AB%98%E7%BA%A7%E7%AF%87/" title="PHP学习笔记2-高级篇">PHP学习笔记2-高级篇</a><time datetime="2023-10-06T09:56:30.000Z" title="发表于 2023-10-06 17:56:30">2023-10-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/10/06/PHP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01-%E5%9F%BA%E7%A1%80%E7%AF%87/" title="PHP学习笔记1-基础篇">PHP学习笔记1-基础篇</a><time datetime="2023-10-06T09:55:51.000Z" title="发表于 2023-10-06 17:55:51">2023-10-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/09/23/js%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02-%E5%86%85%E7%BD%AE%E5%AF%B9%E8%B1%A1/" title="js学习笔记2-内置对象">js学习笔记2-内置对象</a><time datetime="2023-09-23T08:43:05.000Z" title="发表于 2023-09-23 16:43:05">2023-09-23</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/09/23/markdown%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/" title="markdown使用技巧">markdown使用技巧</a><time datetime="2023-09-23T08:41:12.000Z" title="发表于 2023-09-23 16:41:12">2023-09-23</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/09/23/DOM%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="DOM学习笔记">DOM学习笔记</a><time datetime="2023-09-23T08:40:49.000Z" title="发表于 2023-09-23 16:40:49">2023-09-23</time></div></div></div></div></div></div></main><footer id="footer" style="background: #000000"><div id="footer-wrap"><div class="copyright">&copy;2023 By SS</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Everything is Nothing~</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><div class="js-pjax"></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script></div></body></html>
